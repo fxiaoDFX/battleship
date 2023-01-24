@@ -1,35 +1,25 @@
-import createShip from "../ship"
+import Ship from "../ship"
 
-test("null ship", () => {
-    expect(createShip()).toBeNull()
+let destroyer = null
+beforeEach(() => {
+    destroyer = new Ship(2)
 })
 
-describe("properties of ship object", () => {
-    const ship = createShip(3)
+test("ship length is 2", () => {
+    expect(destroyer.length).toEqual(2)
+})
 
-    test("ship length is 3", () => {
-        expect(ship.length).toBe(3)
-    })
+test("is hit once", () => {
+    destroyer.hit()
+    expect(destroyer.timesHit).toEqual(1)
+})
 
-    test("ship hit is 0", () => {
-        expect(ship.timesHit).toBe(0)
-    })
+test("is not sunk", () => {
+    expect(destroyer.isSunk()).toBe(false)
+})
 
-    test("ship hit is 1", () => {
-        ship.hit()
-        expect(ship.timesHit).toBe(1)
-    })
-
-    test("is sunk false", () => {
-        expect(ship.sunk).toBeFalsy()
-    })
-
-    test("is sunk true", () => {
-        ship.hit(5)
-        expect(ship.isSunk()).toBeTruthy()
-    })
-
-    test("number of hits is 6", () => {
-        expect(ship.getHits()).toBe(6)
-    })
+test("is sunk", () => {
+    destroyer.hit()
+    destroyer.hit()
+    expect(destroyer.isSunk()).toBe(true)
 })

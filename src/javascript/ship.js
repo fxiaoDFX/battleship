@@ -1,21 +1,17 @@
-export default function createShip(length = 0) {
-    if (length <= 0) return null
-    return {
-        length,
-        timesHit: 0,
-        sunk: false,
+class Ship {
+    constructor(length) {
+        this.length = length
+        this.timesHit = 0
+        this.sunk = false
+    }
 
-        hit(num) {
-            if (!num) this.timesHit++
-            else this.timesHit += num
-        },
+    hit() {
+        this.timesHit++
+    }
 
-        isSunk() {
-            return this.timesHit >= length
-        },
-
-        getHits() {
-            return this.timesHit
-        },
+    isSunk() {
+        return this.timesHit >= this.length
     }
 }
+
+export default Ship
