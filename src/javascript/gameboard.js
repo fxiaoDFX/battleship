@@ -3,6 +3,7 @@ import Ship from "./ship"
 class Gameboard {
     constructor() {
         this.board = this.initialize()
+        this.numberOfShips = 0
     }
 
     initialize() {
@@ -36,6 +37,7 @@ class Gameboard {
                 this.board[startPosition + i * 10].ship = ship
             }
         }
+        this.numberOfShips++
     }
 
     receiveAttack(x, y) {
@@ -44,8 +46,28 @@ class Gameboard {
         const index = parseInt("" + y + x)
 
         this.board[index].isShot = true
+        if (this.board[index].ship) {
+            this.board[index].ship.hit()
+            if (this.board[index].ship.isSunk()) {
+                this.board[index].ship.sunk = true
+                this.numberOfShips--
+            }
+            return true
+        }
+        return false
+    }
 
-        return index
+    areAllShipsSunk() {
+        return this.numberOfShips === 0 ? true : false
+    }
+
+    // methods for testing
+    sinkAll() {
+        for (const ship of arguments) {
+            ship.timesHit = ship.length
+            ship.sunk = true
+            this.numberOfShips--
+        }
     }
 }
 

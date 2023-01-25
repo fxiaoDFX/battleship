@@ -5,7 +5,7 @@ let board1
 beforeEach(() => {
     board1 = new Gameboard()
 })
-describe("filled gameboard", () => {
+describe("fill gameboard", () => {
     test("gameboard 100 cells", () => {
         expect(board1.board.length).toEqual(100)
     })
@@ -87,7 +87,55 @@ describe("receiveAttack()", () => {
         }).toThrow()
     })
 
-    test("(9, 1) should be 19", () => {
-        expect(board1.receiveAttack(9, 1)).toBe(19)
+    test("(9,9) is attacked", () => {
+        board1.receiveAttack(9, 9)
+        expect(board1.board[99].isShot).toBeTruthy()
+    })
+
+    test("ship at (0,0) is hit", () => {
+        const sub = new Ship(3)
+        board1.placeShip(sub, 0)
+        board1.receiveAttack(0, 0)
+        expect(board1.board[0].ship.timesHit).toBe(1)
+        expect(board1.board[1].ship.timesHit).toBe(1)
+        expect(board1.board[2].ship.timesHit).toBe(1)
+        expect(board1.board[3].ship).toBeNull()
+    })
+
+    test("sub sunk when hit 3 times", () => {
+        const sub = new Ship(3)
+        board1.placeShip(sub, 0)
+        board1.receiveAttack(0, 0)
+        board1.receiveAttack(1, 0)
+        board1.receiveAttack(2, 0)
+        expect(board1.board[0].ship.sunk).toBeTruthy()
+        expect(board1.board[1].ship.sunk).toBeTruthy()
+        expect(board1.board[2].ship.sunk).toBeTruthy()
+        expect(board1.board[10].ship).toBeNull()
+    })
+})
+
+describe("areAllShipsSunk()", () => {
+    const destroyer = new Ship(2)
+    const sub = new Ship(3)
+
+    beforeEach(() => {
+        board1.placeShip(destroyer, 0)
+        board1.placeShip(sub, 10, true)
+    })
+
+    test("not all ships sunk", () => {
+        expect(board1.areAllShipsSunk()).toBeFalsy()
+    })
+
+    test("all ships sunk", () => {
+        expect(board1.numberOfShips).toBe(2)
+        board1.receiveAttack(0, 0)
+        board1.receiveAttack(1, 0)
+        board1.receiveAttack(0, 1)
+        board1.receiveAttack(0, 2)
+        board1.receiveAttack(0, 3)
+        expect(board1.areAllShipsSunk()).toBeTruthy()
+        expect(board1.numberOfShips).toBe(0)
     })
 })
