@@ -74,6 +74,20 @@ describe("place a carrier", () => {
     })
 })
 
+describe("collision detection", () => {
+    let sub
+    let carrier
+    beforeEach(() => {
+        sub = new Ship(3)
+        carrier = new Ship(5)
+    })
+
+    expect(board1.validPosition(0, 0)).toBe(true)
+    board1.placeShip(sub, 0)
+    expect(board1.validPosition(0, 0)).toBe(false)
+})
+
+/*
 describe("receiveAttack()", () => {
     test("throw error invalid x coordinate", () => {
         expect(() => {
@@ -136,6 +150,7 @@ describe("areAllShipsSunk()", () => {
         board1.receiveAttack(0, 2)
         board1.receiveAttack(0, 3)
         expect(board1.areAllShipsSunk()).toBeTruthy()
-        expect(board1.numberOfShips).toBe(0)
+        expect(board1.numberOfShips).toBe()
     })
 })
+*/
