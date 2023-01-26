@@ -26,14 +26,27 @@ class Gameboard {
     placeShip(ship, startPosition, vertical = false) {
         if (!(ship instanceof Ship)) throw "Not a ship"
         if (!(startPosition >= 0) || startPosition > 99)
-            throw "Invalid start position"
+            throw "Invalid start position, index out of bounds"
+
+        const endPosition = vertical
+            ? startPosition + (ship.length - 1) * 10
+            : startPosition + ship.length - 1
+        // check if coordinate for ship is valid
+        if (endPosition > 99)
+            throw "Invalid start position, ship end out of bounds"
 
         if (!vertical)
             for (let i = 0; i < ship.length; i++) {
+                // check for existing ship
+                if (this.board[startPosition + i].ship !== null)
+                    throw "Overlapping ships not allowed"
                 this.board[startPosition + i].ship = ship
             }
         else {
             for (let i = 0; i < ship.length; i++) {
+                // check for existing ship
+                if (this.board[startPosition + i * 10].ship !== null)
+                    throw "Overlapping ships not allowed"
                 this.board[startPosition + i * 10].ship = ship
             }
         }

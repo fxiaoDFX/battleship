@@ -82,9 +82,50 @@ describe("collision detection", () => {
         carrier = new Ship(5)
     })
 
-    expect(board1.validPosition(0, 0)).toBe(true)
-    board1.placeShip(sub, 0)
-    expect(board1.validPosition(0, 0)).toBe(false)
+    test("placing carrier at the edge", () => {
+        board1.placeShip(carrier, 94)
+        expect(board1.numberOfShips).toBe(1)
+    })
+
+    test("cannot place ship when not enough room", () => {
+        expect(() => {
+            board1.placeShip(carrier, 99).throw()
+        })
+        expect(board1.numberOfShips).toBe(0)
+    })
+
+    test("cannot place ship when not enough room, vertical", () => {
+        expect(() => {
+            board1.placeShip(carrier, 99, true).throw()
+        })
+        expect(board1.numberOfShips).toBe(0)
+    })
+
+    test("overlapping ships throw error", () => {
+        board1.placeShip(sub, 0)
+        expect(() => {
+            board1.placeShip(carrier, 0).throw()
+        })
+        expect(board1.numberOfShips).not.toBe(2)
+    })
+
+    test("overlapping ships throw error, horizontal and vertical ship", () => {
+        board1.placeShip(sub, 10)
+        expect(() => {
+            board1.placeShip(carrier, 0, true).throw()
+        })
+        expect(board1.numberOfShips).not.toBe(2)
+    })
+
+    test("placing carrier at the edge, vertical", () => {
+        board1.placeShip(carrier, 59, true)
+        expect(board1.numberOfShips).toBe(1)
+        expect(board1.board[59].ship).toBeInstanceOf(Ship)
+        expect(board1.board[69].ship).toBeInstanceOf(Ship)
+        expect(board1.board[79].ship).toBeInstanceOf(Ship)
+        expect(board1.board[89].ship).toBeInstanceOf(Ship)
+        expect(board1.board[99].ship).toBeInstanceOf(Ship)
+    })
 })
 
 /*
