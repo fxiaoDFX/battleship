@@ -1,3 +1,28 @@
-body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.start-container {
+    height: 100vh;
     background: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.start-button {
+    padding: 4px 8px;
+    background-color: #555555;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.start-title {
+    font-size: 6rem;
 }

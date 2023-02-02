@@ -3,10 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
     mode: "development",
-    entry: {
-        main: "./src/index.js",
-        splash: "./src/index.js",
-    },
+    entry: "./src/js/index",
+
     output: {
         filename: "[name].bundle.js",
         path: path.resolve(__dirname, "dist"),
@@ -20,10 +18,6 @@ module.exports = {
         hot: false,
     },
 
-    optimization: {
-        runtimeChunk: "single",
-    },
-
     module: {
         rules: [
             {
@@ -35,20 +29,22 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: "asset/resource",
             },
+
+            {
+                test: /\.html$/i,
+                type: "asset/resource",
+                generator: {
+                    filename: "[name][ext]",
+                },
+                exclude: path.resolve(__dirname, "./src/html/index.html"),
+            },
         ],
     },
 
     plugins: [
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: "./src/html/main.html",
-            chunks: ["main"],
-        }),
-
-        new HtmlWebpackPlugin({
-            filename: "splash.html",
-            template: "./src/html/splash.html",
-            chunks: ["splash-page"],
+            template: "./src/html/index.html",
         }),
     ],
 }
