@@ -29,15 +29,6 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: "asset/resource",
             },
-
-            {
-                test: /\.html$/i,
-                type: "asset/resource",
-                generator: {
-                    filename: "[name][ext]",
-                },
-                exclude: path.resolve(__dirname, "./src/html/index.html"),
-            },
         ],
     },
 
@@ -45,6 +36,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: "index.html",
             template: "./src/html/index.html",
+        }),
+
+        new HtmlWebpackPlugin({
+            filename: "singleplayer.html",
+            template: "./src/html/singleplayer.html",
+            chucks: [],
         }),
     ],
 }
