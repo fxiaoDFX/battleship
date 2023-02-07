@@ -13,8 +13,8 @@ document.addEventListener("keypress", (e) => {
     }
 })
 
-createBoard(1)
-createBoard(2)
+createBoard("player1", "pink")
+createBoard("player2")
 
 // ship rotation
 let angle = 0
@@ -28,9 +28,11 @@ function flip() {
 }
 
 // create boards
-function createBoard(num, width = 10) {
+function createBoard(user, color = "blue", width = 10) {
     const board = document.createElement("div")
-    board.classList.add(`board`, `${num}`)
+    board.classList.add("board")
+    board.id = user
+    board.style.backgroundColor = color
 
     for (let i = 0; i < width * width; i++) {
         const cell = document.createElement("div")

@@ -6,7 +6,7 @@ div {
     border: 2px solid black;
 }
 
-.boards.container {
+.boards {
     background-color: blue;
     display: flex;
     justify-content: space-around;
