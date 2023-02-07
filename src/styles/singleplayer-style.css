@@ -1,0 +1,59 @@
+body {
+    background-color: grey;
+}
+
+div {
+    border: 2px solid black;
+}
+
+.boards.container {
+    background-color: blue;
+    display: flex;
+    justify-content: space-around;
+}
+
+.board {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    border: 1px solid #ffffffaa;
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+}
+
+.ships.container {
+    margin: 8px 2px;
+    background-color: yellow;
+    width: fit-content;
+    height: 44px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.ship {
+    height: 10px;
+    margin: 2px;
+    background-color: purple;
+}
+
+.destroyer {
+    width: 20px;
+}
+.sub {
+    width: 30px;
+}
+.cruiser {
+    width: 40px;
+}
+.battleship {
+    width: 40px;
+}
+.carrier {
+    width: 50px;
+}
